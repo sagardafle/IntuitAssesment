@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
 
+/**
+ * MatchTemplateHelper - Class which helps to match the input file with the template
+ */
 public class MatchTemplateHelper {
     private final String TEMPLATE_FILE = "C:\\Users\\I863509\\IdeaProjects\\TemplateMatching\\src\\main\\resources\\sample_files\\perfect_cat_image.txt";
     private int template_row;
@@ -18,6 +21,12 @@ public class MatchTemplateHelper {
     private int Y1;
     private int Y2;
 
+    /**
+     *
+     * @param filename THe input file path from which the pattern is to be matched.
+     * @return 2D representation of the input file as well as the template files
+     * @throws Exception Throws FileNotFound exception
+     */
     public int[][] create2DIntMatrixFromFile(String filename) throws Exception {
         int[][] matrix = null;
         BufferedReader buffer = new BufferedReader(new FileReader(filename));
@@ -44,6 +53,12 @@ public class MatchTemplateHelper {
         return matrix;
     }
 
+    /**
+     * Build a hashmap of the template file.
+     * Key - The row number in the template file. Starting from 1.
+     * @param inputfile
+     * @return A HashMap of the template file with Key- row number, Value - Contents of the respective row.
+     */
     public Map < Integer, String > buildCatMap(String inputfile) {
         Map < Integer, String > catMap = new HashMap < Integer, String > ();
         pointsmap = new HashMap < List < Integer > , List < Integer >> ();
@@ -71,6 +86,12 @@ public class MatchTemplateHelper {
         return catMap;
     }
 
+    /**
+     *
+     * @param catMap THe Hashmap of the tempalte file
+     * @param thresholdvalue The threshold value as entered by user.
+     * @return A Map with the list of Starting points and the End points of the matching template coordinate.
+     */
     public Map < List < Integer > , List < Integer >> findMatch(Map < Integer, String > catMap, String thresholdvalue) {
         int mismatch = getAllowedMismatch(thresholdvalue, catMap);
         System.out.println("Minimum " + mismatch + " rows mismatch allowed.");
@@ -133,8 +154,13 @@ public class MatchTemplateHelper {
         return pointsmap;
     }
 
+    /**
+     *
+     * @param filerowstring The String representation of a particular row of the inputfile.
+     * @param templaterowstring The String representation of a particular row of the templatefile.
+     * @return Returns if the two strings met the characterMatch condition
+     */
     private boolean characterMatch(String filerowstring, String templaterowstring) {
-
         int i = 0;
         int counter = 0;
         for (char c: filerowstring.toCharArray()) {
@@ -149,6 +175,10 @@ public class MatchTemplateHelper {
         return true;
     }
 
+    /**
+     * Populates the Map of final start and end points of the matched template within the input file.
+     * @param mismatch
+     */
     private void populateoutputMap(int mismatch) {
         if (unmatchcounter < mismatch && unmatchcounter > 0) {
             /*This means the current point set can be added to answer.
@@ -169,6 +199,12 @@ public class MatchTemplateHelper {
         }
     }
 
+    /**
+     * Computes the maximum number of the mismatches allowed within the input file(by row).
+     * @param thresholdvalue The threshold value as entered by the user.
+     * @param catMap The Map representation of the templatefile.
+     * @return The valid number of allowed mismatches.
+     */
     private int getAllowedMismatch(String thresholdvalue, Map < Integer, String > catMap) {
         int threshold = Integer.parseInt(thresholdvalue);
         System.out.println("Threshold: " + thresholdvalue);
@@ -176,6 +212,12 @@ public class MatchTemplateHelper {
         return (catMap.size() - 1 - (int) minimummatches);
     }
 
+    /**
+     * Gets a particular row string from the matrix
+     * @param X2 The row number
+     * @param Y2 The column number
+     * @return THe string from position(X2,Y2)
+     */
     private String getRowString(int X2, int Y2) {
         StringBuilder currentrow = new StringBuilder();
         if (inputarr[X2] != null) {

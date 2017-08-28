@@ -11,16 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 
-
+/**
+ * REST API Service for the tempalte matching
+ */
 @Path("/intuit")
 public class MatchTemplateService {
     private static final String TEMPLATE_FILE = "C:\\Users\\I863509\\IdeaProjects\\IntuitAssesment\\src\\sample_files\\perfect_cat_image.txt";
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/{param}")
-    public String helloWorld(@PathParam("param") String msg) {
-        return "Hello " + msg;
-    }
+
+    /**
+     * Function to Load the OpenCV library
+     * @return
+     */
     @GET
     @Path("/loadlibrary")
     public String loadlibrary() {
@@ -28,6 +29,11 @@ public class MatchTemplateService {
         return "Library " + Core.NATIVE_LIBRARY_NAME + " has been successfully loaded.";
     }
 
+    /**
+     * POST API to match the template
+     * @param input The file path and the threshold value embedded as the UserInput object.
+     * @return The JSON data of the matched points.
+     */
     @POST @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/matchtemplate")
