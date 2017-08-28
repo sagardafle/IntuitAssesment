@@ -1,0 +1,22 @@
+    Sr. SWE Craft Task
+
+Couple of years back, Google create a brain simulator in their labs, that learned
+how to recognize cats in YouTube videos (http://www.wired.co.uk/news/archive/2012-06/26/google-brain-recognises-cats)
+
+Your task is a stripped down version of the same idea.
+Imagine you have a single video frame (image_with_cats.txt) with some cat images.
+In addition, you have a perfect cat image (perfect_cat_image.txt). Your goal is
+to find the cats in the video frame. You can return the position of the cat in the
+image matrix, and the percentage match. You can optionally provide a threshold
+match value (like 85% confidence this is the image you are looking for).
+
+You should expose the functionality above as a JSON REST service
+that takes the video frame on the input (as a text matrix), and the threshold
+match value, and returns the output again as a REST response. You don't have to
+pass the image you are looking for (the cat image) in the REST interface - it remains constant.
+
+The above should be implemented in Java with Java frameworks if needed.
+
+Note: The video frame could be "noisy" - you may not find the perfect cat image,
+therefore, you have to deal with certain possibilities what you have found is the
+correct answer.
